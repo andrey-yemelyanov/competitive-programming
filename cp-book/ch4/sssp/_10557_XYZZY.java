@@ -6,6 +6,7 @@ import java.util.stream.*;
 Problem name: 10557 XYZZY
 Problem url: https://uva.onlinejudge.org/external/105/10557.pdf
 Author: Andrey Yemelyanov
+Tips: http://www.questtosolve.com/browse.php?pid=10557
 */
 public class _10557_XYZZY {
   static class Edge{
