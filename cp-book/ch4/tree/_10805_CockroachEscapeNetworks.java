@@ -6,6 +6,8 @@ import java.util.stream.*;
 Problem name: 10805 Cockroach Escape Networks
 Problem url: https://uva.onlinejudge.org/external/108/10805.pdf
 Author: Andrey Yemelyanov
+Great hint from https://uva.onlinejudge.org/board/viewtopic.php?f=30&t=7281&hilit=10805&start=30#p374880
+"In every tree there exists a point (possibly in the ‘middle’ of some edge) such that the distance of the furthest vertex from it is exactly half the diameter of the tree."
 */
 public class _10805_CockroachEscapeNetworks {
   public static void main(String[] args){
