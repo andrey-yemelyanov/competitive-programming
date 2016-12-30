@@ -66,15 +66,9 @@ valid_moves = {
 }
 
 def moves_are_available(game):
-    for peg in game:
-        for move in valid_moves[peg]:
-            intermediate_hole = move[0]
-            target_hole = move[1]
-            if intermediate_hole in game and target_hole not in game: # intermediate hole has a peg and target hole is empty
-                return True
-    return False
+    return len(find_valid_moves(game)) != 0
 
-def pick_best_move(game):
+def find_valid_moves(game):
     # find all valid moves
     moves = []
     for peg in game:
@@ -83,6 +77,10 @@ def pick_best_move(game):
             target_hole = move[1]
             if intermediate_hole in game and target_hole not in game:
                 moves.append((peg, intermediate_hole, target_hole))
+    return moves
+
+def pick_best_move(game):
+    moves = find_valid_moves(game)
     # sort moves first by target hole, then by source hole
     moves = sorted(sorted(moves, key = lambda move : move[0], reverse = True), key = lambda move : move[2], reverse = True)
     return moves[0]
