@@ -33,13 +33,9 @@ def play_bingo(bingo_card, bingo_numbers):
     return 0
 
 def bingo(bingo_status):
-    for row in range(len(bingo_status)):
-        if bingo_in_row(bingo_status, row):
-            return True
-    for col in range(len(bingo_status[0])):
-        if bingo_in_column(bingo_status, col):
-            return True
-    return bingo_in_diagonal(bingo_status)
+    return (any(bingo_in_row(bingo_status, row) for row in range(len(bingo_status))) or
+           any(bingo_in_column(bingo_status, col) for col in range(len(bingo_status[0]))) or
+           bingo_in_diagonal(bingo_status))
 
 def bingo_in_column(bingo_status, col):
     return all(x == 1 for x in [row[col] for row in bingo_status])
