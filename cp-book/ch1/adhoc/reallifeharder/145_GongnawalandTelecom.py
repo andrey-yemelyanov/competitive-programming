@@ -15,9 +15,9 @@ def main():
 			break
 		charging_step, phone_num, start_hour, start_minute, end_hour, end_minute = [x for x in record.split()]
 		breakdown = break_down_into_categories(int(start_hour), int(start_minute), int(end_hour), int(end_minute))
-		total_charge = breakdown[day_rate] * schedule[charging_step][day_rate] + \
-					   breakdown[evening_rate] * schedule[charging_step][evening_rate] + \
-					   breakdown[night_rate] * schedule[charging_step][night_rate]
+		total_charge = (breakdown[day_rate] * schedule[charging_step][day_rate]
+						+ breakdown[evening_rate] * schedule[charging_step][evening_rate]
+						+ breakdown[night_rate] * schedule[charging_step][night_rate])
 		print("{0:>10}{1:>6}{2:>6}{3:>6}{4:>3}{5:>8.2f}".format(phone_num, breakdown[day_rate], breakdown[evening_rate], breakdown[night_rate], charging_step, total_charge))
 
 schedule = {
