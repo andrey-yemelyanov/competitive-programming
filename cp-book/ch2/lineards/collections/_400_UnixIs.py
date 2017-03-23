@@ -32,25 +32,22 @@ def print_files(files):
 	L = len(max(files, key=len)) # length of the longest filename
 	C = get_n_cols(L)
 	R = get_n_rows(len(files), C)
-	total_files_printed = 0
 	for row in range(R):
-		total_files_printed = print_row(row, files, R, C, L, total_files_printed)
+		print_row(row, files, R, C, L)
 		print()
 
-def print_row(row, files, R, C, L, total_files_printed):
+def print_row(row, files, R, C, L):
 	next_file = row
 	for col in range(C):
-		if(total_files_printed == len(files) or next_file >= len(files)):
-			return total_files_printed
+		if(next_file >= len(files)):
+			return
 
 		formatStr = "{0:<" + str((L + 2)) + "s}"
 		if col == C - 1:
 			formatStr = "{0:<" + str(L) + "s}"
 		print(formatStr.format(files[next_file]), end='')
-		total_files_printed += 1
 
 		next_file += get_col_height(col, len(files), R, C)
-	return total_files_printed
 
 def get_col_height(col, n_files, R, C):
 	if n_files % C == 0 or col < C - 1:
