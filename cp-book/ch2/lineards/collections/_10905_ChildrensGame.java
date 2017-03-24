@@ -20,7 +20,6 @@ public class _10905_ChildrensGame {
       sortByDigits(numbers);
       System.out.println(
         numbers.stream()
-               .map(Object::toString)
                .collect(Collectors.joining(""))
       );
     }
