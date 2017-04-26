@@ -22,7 +22,7 @@ public class _617_NonStopTravel {
 
     public boolean isRed(double time){
       double relativeTime = time % (G + Y + R);
-      return relativeTime > (G + Y) && relativeTime < (G + Y + R);
+      return relativeTime > (G + Y) && relativeTime <= (G + Y + R);
     }
   }
 
