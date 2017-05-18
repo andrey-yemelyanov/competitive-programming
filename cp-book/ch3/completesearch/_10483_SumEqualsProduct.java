@@ -36,7 +36,6 @@ public class _10483_SumEqualsProduct {
           if(c >= b){
             int sumUnscaled = a + b + c;
             if(10000 * sumUnscaled == (a * b * c)){
-              double sum = sumUnscaled / 100.0;
               if(sumUnscaled >= from && sumUnscaled <= to){
                 triplets.add(new Integer[] {a, b, c});
               }
