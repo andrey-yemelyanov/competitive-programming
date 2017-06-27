@@ -50,16 +50,12 @@ public class _116_UnidirectionalTsp {
     int prevRow = prevRow(row, memo.length); int nextRow = (row + 1) % memo.length;
     int[] rows = new int[]{prevRow, row, nextRow};
     Arrays.sort(rows);
-    //System.out.println("Row = " + row + " Col = " + col + " " + Arrays.toString(rows));
-    if(memo[rows[0]][col + 1] == minWeight - weight[row][col]){
-      path.add(rows[0]);
-      getMinWeightPath(minWeight - weight[row][col], memo, weight, path, rows[0], col + 1);
-    }else if(memo[rows[1]][col + 1] == minWeight - weight[row][col]){
-      path.add(rows[1]);
-      getMinWeightPath(minWeight - weight[row][col], memo, weight, path, rows[1], col + 1);
-    }else{
-      path.add(rows[2]);
-      getMinWeightPath(minWeight - weight[row][col], memo, weight, path, rows[2], col + 1);
+    for(int i = 0; i < rows.length; i++){
+      if(memo[rows[i]][col + 1] == minWeight - weight[row][col]){
+        path.add(rows[i]);
+        getMinWeightPath(minWeight - weight[row][col], memo, weight, path, rows[i], col + 1);
+        break;
+      }
     }
   }
 
