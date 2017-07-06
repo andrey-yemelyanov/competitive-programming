@@ -23,7 +23,25 @@ public class _10036_Divisibility {
   }
 
   static boolean divisible(int[] sequence, int K){
-    System.out.println(Arrays.toString(sequence));
-    return false;
+    return remainderPossible(sequence, K);
+  }
+
+  static boolean remainderPossible(int[] sequence, int K){
+    int[][] memo = new int[sequence.length][2 * K];
+    for(int i = 0; i < memo.length; i++) Arrays.fill(memo[i], NA);
+    return remainderPossible(0, 0, sequence, K, memo);
+  }
+
+  static final int NA = -1;
+  static final int TRUE = 1;
+  static final int FALSE = 2;
+  static boolean remainderPossible(int i, int rem, int[] sequence, int K, int[][] memo){
+    final int OFFSET = K;
+    if(i == sequence.length - 1) return sequence[i] % K == rem;
+    if(memo[i][rem + OFFSET] != NA) return memo[i][rem + OFFSET] == TRUE ? true : false;
+    memo[i][rem + OFFSET] =
+      (remainderPossible(i + 1, (rem + sequence[i]) % K, sequence, K, memo) ||
+      remainderPossible(i + 1, (rem - sequence[i]) % K, sequence, K, memo)) ? TRUE : FALSE;
+    return memo[i][rem + OFFSET] == TRUE ? true : false;
   }
 }
