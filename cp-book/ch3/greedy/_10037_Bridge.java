@@ -17,6 +17,7 @@ public class _10037_Bridge {
       int n = s.nextInt();
       int[] people = new int[n];
       for(int i = 0; i < n; i++) people[i] = s.nextInt();
+      Arrays.sort(people);
       List<Integer[]> solution = new ArrayList<>();
       System.out.println(crossBridge(people, solution));
       solution.stream()
