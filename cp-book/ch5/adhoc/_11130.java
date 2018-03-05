@@ -31,10 +31,4 @@ public class _11130 {
     int nX = (x < a / 2.0) ? 0 : ((int)floor((x - a / 2.0) / a) + 1);
     return new int[]{nX, nY};
   }
-
-  static double dist(int v, int s){
-    double sum = 0;
-    for(int i = 1; i <= s; i++) sum += i;
-    return (sum / s) * v;
-  }
 }
