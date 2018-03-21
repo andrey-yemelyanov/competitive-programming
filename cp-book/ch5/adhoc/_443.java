@@ -31,7 +31,6 @@ public class _443 {
       }
     }
     Collections.sort(humbleNumbers);
-    //System.out.println(humbleNumbers.indexOf(3072L));
     return humbleNumbers;
   }
 
