@@ -22,8 +22,7 @@ public class _10235 {
 
   static boolean isEmirp(int n){
     int reversed = reverseDigits(n);
-    if(reversed == n) return false;
-    return isPrime(reverseDigits(n));
+    return reversed != n && isPrime(reversed);
   }
 
   static boolean isPrime(int n){
