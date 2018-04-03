@@ -29,6 +29,8 @@ public class _10541 {
   }
 
   static BigInteger binomial(int n, int k){
+    // C(n,k) = n!/(n-k)!k!
+    // C(n,k) = n(n-1)(n-2)...(n-k+1)/k(k-1)(k-2)...1
     BigInteger binomial = BigInteger.ONE;
     for(int i = n; i >= n - k + 1; i--){
       binomial = binomial.multiply(BigInteger.valueOf(i));
