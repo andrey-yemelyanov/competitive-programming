@@ -11,41 +11,48 @@ Author: Andrey Yemelyanov
 public class _10140 {
   public static void main(String[] args){
     Scanner s = new Scanner(in);
+    final int BOUND = 10000000;
     List<Integer> primes = sieve(BOUND);
     while(s.hasNext()){
-      int L = s.nextInt(); int U = s.nextInt();
-      int[] mostDistant = mostDistantPair(L, U, primes);
-      int[] closest = closestPair(L, U, primes);
-      if(closest == null || mostDistant == null) System.out.println("There are no adjacent primes.");
+      long L = s.nextLong(); long U = s.nextLong();
+      long[] result = findPairs(L, U, primes);
+      if(result == null) System.out.println("There are no adjacent primes.");
       else System.out.printf("%d,%d are closest, %d,%d are most distant.\n",
-        closest[0], closest[1],
-        mostDistant[0], mostDistant[1]);
+        result[0], result[1],
+        result[2], result[3]);
     }
   }
 
-  static int[] mostDistantPair(int L, int U, List<Integer> primes){
-    long dist = Integer.MIN_VALUE;
-    int[] pair = null; long prevPrime = -1;
+  static long[] findPairs(long L, long U, List<Integer> primes){
+    long closestDist = Integer.MAX_VALUE;
+    long farthestDist = Integer.MIN_VALUE;
+    long prevPrime = -1;
+    long[] closest = null; long[] farthest = null;
     for(long i = L; i <= U; i++){
       if(isPrime(i, primes)){
-        if(prevPrime != -1 && i - prevPrime > dist){
-          dist = i - prevPrime;
-          pair = new int[]{(int)prevPrime, (int)i};
+        if(prevPrime != -1 && i - prevPrime > farthestDist){
+          farthestDist = i - prevPrime;
+          farthest = new long[]{prevPrime, i};
+        }
+        if(prevPrime != -1 && i - prevPrime < closestDist){
+          closestDist = i - prevPrime;
+          closest = new long[]{prevPrime, i};
         }
         prevPrime = i;
       }
     }
-    return pair;
+    if(closest == null || farthest == null) return null;
+    return new long[]{closest[0], closest[1], farthest[0], farthest[1]};
   }
 
-  static int[] closestPair(int L, int U, List<Integer> primes){
+  static long[] closestPair(long L, long U, List<Integer> primes){
     long dist = Integer.MAX_VALUE;
-    int[] pair = null; long prevPrime = -1;
+    long[] pair = null; long prevPrime = -1;
     for(long i = L; i <= U; i++){
       if(isPrime(i, primes)){
         if(prevPrime != -1 && i - prevPrime < dist){
           dist = i - prevPrime;
-          pair = new int[]{(int)prevPrime, (int)i};
+          pair = new long[]{prevPrime, i};
         }
         prevPrime = i;
       }
@@ -53,18 +60,19 @@ public class _10140 {
     return pair;
   }
 
-  static final int BOUND = 1000000;
-
   static boolean isPrime(long n, List<Integer> primes){
+    if(n < sieve.length) return sieve[(int)n];
     int bound = (int)ceil(sqrt(n));
-    for(int i = 0; i < primes.size() && bound >= primes.get(i); i++){
+    for(int i = 0; i < primes.size(); i++){
+      if(primes.get(i) > bound) break;
       if(n % primes.get(i) == 0) return false;
     }
     return true;
   }
 
+  static boolean[] sieve;
   static List<Integer> sieve(int upperBound){
-    boolean[] sieve = new boolean[upperBound + 1];
+    sieve = new boolean[upperBound + 1];
     List<Integer> primes = new ArrayList<>();
     for(int i = 2; i < sieve.length; i++) sieve[i] = true;
     for(int i = 2; i < sieve.length; i++){
