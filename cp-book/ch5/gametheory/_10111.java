@@ -39,7 +39,7 @@ public class _10111 {
       for(int j = 0; j < board.length; j++){
         if(board[i][j] == EMPTY){
           board[i][j] = X;
-          if(play(board, O, nEmptyCells - 1) == 10) return new int[] {i, j};
+          if(play(board, O, nEmptyCells - 1)) return new int[] {i, j};
           board[i][j] = EMPTY;
         }
       }
@@ -47,38 +47,32 @@ public class _10111 {
     return null;
   }
 
-  static void printBoard(int[][] board){
-    for(int i = 0; i < board.length; i++){
-      System.out.println(Arrays.toString(board[i]));
-    }
-  }
+  static boolean play(int[][] board, int turn, int nEmptyCells){
+    if(playerWins(board, X)) return true;
+    if(playerWins(board, O)) return false;
+    if(nEmptyCells == 0) return false; // game over - it is a tie
 
-  static int play(int[][] board, int turn, int nEmptyCells){
-    if(playerWins(board, X)) return 10;
-    if(playerWins(board, O)) return -10;
-    if(nEmptyCells == 0) return 0;
-
-    int bestScore = turn == X ? Integer.MIN_VALUE : Integer.MAX_VALUE;
     for(int i = 0; i < board.length; i++){
       for(int j = 0; j < board.length; j++){
         if(board[i][j] == EMPTY){
           if(turn == X){
             board[i][j] = X;
-            int score = play(board, O, nEmptyCells - 1);
-            board[i][j] = EMPTY;
-            if(score == 10) return score; // prune as soon as we find a guaranteed win
-            bestScore = max(bestScore, score);
+            if(play(board, O, nEmptyCells - 1)){
+              board[i][j] = EMPTY;
+              return true;
+            }
           }else if(turn == O){
             board[i][j] = O;
-            int score = play(board, X, nEmptyCells - 1);
-            board[i][j] = EMPTY;
-            if(score == -10) return score; // prune as soon as we find a guaranteed loss
-            bestScore = min(bestScore, score);
+            if(!play(board, X, nEmptyCells - 1)){
+              board[i][j] = EMPTY;
+              return false;
+            }
           }
+          board[i][j] = EMPTY;
         }
       }
     }
-    return bestScore;
+    return turn != X;
   }
 
   static boolean playerWins(int[][] board, int player){
