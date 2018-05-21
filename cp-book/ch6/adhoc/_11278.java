@@ -26,23 +26,12 @@ public class _11278 {
   static char[] DVORAK_SHIFT = "~!@#QJLMFP?{}$%^>ORSUYB:+|&*(AEHTDCK_)ZX<INWVG\"".toCharArray();
 
   static char qwertyToDvorak(char c){
-    int index = -1;
     for(int i = 0; i < QWERTY.length; i++){
-      if(QWERTY[i] == c){
-        index = i;
-        break;
-      }
+      if(QWERTY[i] == c) return DVORAK[i];
     }
-    if(index != -1){
-      return DVORAK[index];
-    }else{
-      for(int i = 0; i < QWERTY_SHIFT.length; i++){
-        if(QWERTY_SHIFT[i] == c){
-          index = i;
-          break;
-        }
-      }
-      return DVORAK_SHIFT[index];
+    for(int i = 0; i < QWERTY_SHIFT.length; i++){
+      if(QWERTY_SHIFT[i] == c) return DVORAK_SHIFT[i];
     }
+    return ' ';
   }
 }
