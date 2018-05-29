@@ -25,12 +25,10 @@ public class _10854 {
   static int countExecutionPaths(List<String> code, int from, int to){
     if(!containsConditional(code, from, to)) return 1;
     int[] split = splitAroundIfElse(code, from, to);
-    int count = countExecutionPaths(code, split[0] + 1, split[1] - 1)
-              + countExecutionPaths(code, split[1] + 1, split[2] - 1);
-    if(containsConditional(code, split[2] + 1, to)){
-      count *= countExecutionPaths(code, split[2] + 1, to);
-    }
-    return count;
+    return (
+              countExecutionPaths(code, split[0] + 1, split[1] - 1) // count # of paths under IF
+            + countExecutionPaths(code, split[1] + 1, split[2] - 1) // count # of paths under ELSE
+           ) * countExecutionPaths(code, split[2] + 1, to); // multiply by # of paths after IF-ELSE stmt
   }
 
   static boolean containsConditional(List<String> code, int from, int to){
@@ -39,7 +37,7 @@ public class _10854 {
   }
 
   static int[] splitAroundIfElse(List<String> code, int from, int to){
-    int i = from; // i points at top-level IF
+    int i = from; // i points at IF
     while(!code.get(i).equals("IF")) i++;
     Stack<String> s = new Stack<>();
     s.push(code.get(i));
