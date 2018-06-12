@@ -34,7 +34,7 @@ public class _11056 {
             return s1.toLowerCase().compareTo(s2.toLowerCase());
           }
         });
-        for(String racer : map.get(key)){
+        for(String racer : racers){
           startingGrid[i++] = racer;
         }
       }
