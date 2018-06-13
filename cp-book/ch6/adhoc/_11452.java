@@ -24,7 +24,7 @@ public class _11452 {
     String nextSteps = period.substring(remainingSteps.length());
     if(nextSteps.length() > NEXT_STEPS_LEN) return nextSteps.substring(0, NEXT_STEPS_LEN) + "...";
     int i = 0;
-    while(nextSteps.length() != 8){
+    while(nextSteps.length() != NEXT_STEPS_LEN){
       nextSteps += period.charAt(i);
       i = (i + 1) % period.length();
     }
