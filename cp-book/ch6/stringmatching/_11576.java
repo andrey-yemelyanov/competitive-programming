@@ -24,9 +24,7 @@ public class _11576 {
     int nLetters = wordLen;
     for(int i = words.size() - 1; i > 0; i--){
       int[] b = kmpPreprocess(words.get(i) + words.get(i - 1));
-      int n = b[b.length - 1];
-      n = min(wordLen, n);
-      nLetters += wordLen - n;
+      nLetters += wordLen - min(wordLen, b[b.length - 1]);
     }
     return nLetters;
   }
