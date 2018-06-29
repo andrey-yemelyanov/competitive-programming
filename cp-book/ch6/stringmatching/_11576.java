@@ -20,11 +20,10 @@ public class _11576 {
   }
 
   static int countLetters(List<String> words){
-    Collections.reverse(words);
     int wordLen = words.get(0).length();
     int nLetters = wordLen;
-    for(int i = 1; i < words.size(); i++){
-      int[] b = kmpPreprocess(words.get(i - 1) + words.get(i));
+    for(int i = words.size() - 1; i > 0; i--){
+      int[] b = kmpPreprocess(words.get(i) + words.get(i - 1));
       int n = b[b.length - 1];
       n = min(wordLen, n);
       nLetters += wordLen - n;
